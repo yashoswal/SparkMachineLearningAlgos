@@ -1,0 +1,6 @@
+library("sqldf")
+joined_table <-read.table("/home/yash/Downloads/joined click fraud data/whole_dataset_with_date_time_joined_9_feb.csv",sep=",",col.names=c("id","iplong", "agent", "pid","cid", "cntr", "date","category","referer","status"))
+partner_iplong<-sqldf("Select pid, count(DISTINCT iplong),count(Distinct agent), count(Distinct cid),count(Distinct cntr),category,count(Distinct referer),status from newMyData group by pid")
+feb_9_joined_without_partnerid<-subset(partner_iplong,select=c("count(DISTINCT iplong)","count(Distinct agent)", "count(Distinct cid)","count(Distinct cntr)","category","count(Distinct referer)","status"))
+write.table(file="/home/yash/Downloads/joined click fraud data/march_8_joined_without_partnerid.csv",x=feb_9_joined_without_partnerid,sep=",",row.names = FALSE,col.names = FALSE)
+print(partner_iplong)

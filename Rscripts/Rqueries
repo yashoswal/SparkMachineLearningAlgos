@@ -1,0 +1,12 @@
+//query to read data
+A <-read.table("/home/yash/Downloads/joined click fraud data/sample",sep=",",col.names=c("iplong", "agent", "partnerid", "cid", "cntr", "category", "referer", "status"))
+
+//doing SMOTE on data
+A$status <- as.factor(A$status)
+A <- SMOTE(status ~ ., A, perc.over = 100, perc.under=200)
+A$status <- as.numeric(levels(A$status)[A$status])
+
+//display results
+prop.table(table(A$status))
+
+print(A)
